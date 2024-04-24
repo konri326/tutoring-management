@@ -1,5 +1,6 @@
 package pl.gontarczyk.tutoringmanagement.language;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class LanguageController {
     }
 
     @PostMapping
-    public ResponseEntity<LanguageDto> create(@RequestBody LanguageDto languageDto) {
+    public ResponseEntity<LanguageDto> create(@RequestBody @Valid LanguageDto languageDto) {
         Language returnedLanguage = languageService.save(languageMapper.toEntity(languageDto));
         LanguageDto returnedLanguageDto = languageMapper.toDto(returnedLanguage);
         return new ResponseEntity<>(returnedLanguageDto, HttpStatus.CREATED);
