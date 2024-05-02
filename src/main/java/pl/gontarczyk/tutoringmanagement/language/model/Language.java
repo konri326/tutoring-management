@@ -2,9 +2,9 @@ package pl.gontarczyk.tutoringmanagement.language.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.gontarczyk.tutoringmanagement.student.model.Student;
 import pl.gontarczyk.tutoringmanagement.teacher.model.Teacher;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -19,8 +19,15 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany
-    private final Set<Teacher> teachers = new HashSet<>();
-
     private String name;
+
+    @ManyToMany
+    @JoinTable(name = "teacher_language",
+            joinColumns = @JoinColumn(name = "language_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    )
+    private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "language")
+    private Set<Student> student;
 }
