@@ -22,7 +22,7 @@ public class TeacherService {
     }
 
     public Teacher save(Teacher teacher, Set<Integer> languages) {
-        teacher.getLanguages().addAll(languages.stream()
+        teacher.setLanguages(languages.stream()
                 .map(languageService::findById)
                 .collect(Collectors.toSet()));
         return teacherRepository.save(teacher);
