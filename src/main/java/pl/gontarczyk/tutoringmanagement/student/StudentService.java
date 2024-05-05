@@ -32,6 +32,11 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException("Student with id " + id + " not found"));
     }
 
+    public Student findWithLockingById(int id) {
+        return studentRepository.findWithLockingById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Student with id " + id + " not found!"));
+    }
+
     public void deleteById(int id) {
         studentRepository.deleteById(id);
     }
