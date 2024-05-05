@@ -1,5 +1,6 @@
 package pl.gontarczyk.tutoringmanagement.exception;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,5 +26,11 @@ public class GlobalExceptionHandler {
         ex.getFieldErrors()
                 .forEach(error -> exceptionsDto.getErrors().put(error.getField(), error.getDefaultMessage()));
         return exceptionsDto;
+    }
+
+    @ExceptionHandler(EntityExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDto entityExistsExceptionHandler(EntityExistsException ex) {
+        return new ExceptionDto(ex.getMessage());
     }
 }
